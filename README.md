@@ -1,4 +1,4 @@
-# vuecli-base
+# vuecli3-base
 
 ## Project setup
 ```
