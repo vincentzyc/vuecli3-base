@@ -1,10 +1,13 @@
 <template>
-  <div class="home">
-    <div class="text-center">
-      <img alt="Vue logo" src="../assets/img/logo.png">
-    </div>
-    <HelloWorld />
-  </div>
+    <cube-page type="home-view" title="HOME">
+        <div slot="content">
+            <div class="text-center">
+                <img alt="Vue logo" src="../assets/img/logo.png">
+            </div>
+            <HelloWorld />
+        </div>
+        <cube-view></cube-view>
+    </cube-page>
 </template>
 
 <script>

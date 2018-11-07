@@ -1,14 +1,16 @@
-import jbPage from './jb-page'; //页面组件
-import loading from "./loading"; // loading
+import CubePage from './cube-page'; //页面组件
+import CubeView from './cube-view'; //路由嵌套组件
+import Loading from "./loading"; // loading
 
 const version = '1.0';
 const install = function(Vue) {
 
     if (install.installed) return;
 
-    Vue.component(jbPage.name, jbPage); //注册组件
+    Vue.component(CubePage.name, CubePage); //注册组件
+    Vue.component(CubeView.name, CubeView); //注册组件
 
-    Vue.$loading = Vue.prototype.$loading = loading;  //注册全局方法组件
+    Vue.$loading = Vue.prototype.$loading = Loading; //注册全局方法组件
 
 };
 
