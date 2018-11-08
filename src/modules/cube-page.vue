@@ -76,7 +76,7 @@ export default {
             top: 0;
             left: 0;
             padding: 0 15px;
-            color: #fc9153;
+            color: #26a2ff;
         }
     }
 

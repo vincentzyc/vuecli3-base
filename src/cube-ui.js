@@ -13,7 +13,7 @@ import {
     // Toolbar,
     // TabBar,
     // TabPanels,
-    // form
+    // // form
     // Checkbox,
     CheckboxGroup,
     // Radio,
@@ -26,7 +26,7 @@ import {
     // Validator,
     // Upload,
     // Form,
-    // popup
+    // // popup
     // Popup,
     // Toast,
     Picker,
@@ -38,7 +38,7 @@ import {
     // ActionSheet,
     // Drawer,
     // ImagePreview,
-    // scroll
+    // // scroll
     // Scroll,
     // Slide,
     // IndexList,
