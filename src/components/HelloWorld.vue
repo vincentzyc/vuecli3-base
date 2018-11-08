@@ -4,9 +4,9 @@
         <cube-button type="submit" @click="snake()">snake-loading</cube-button>
         <cube-button :active="true" @click="tripleBounce()">triple-bounce-loading</cube-button>
         <cube-button icon="cubeic-right" @click="goAbouot()">goAbouot</cube-button>
-        <cube-button :light="true">Light Button</cube-button>
-        <cube-button :inline="true">Inline Button</cube-button>
-        <cube-button :outline="true">Outline Button</cube-button>
+        <cube-button :light="true" @click="showBlandList()">showBlandList</cube-button>
+        <cube-button :inline="true" @click="showCarType()">showCarType</cube-button>
+        <cube-button :outline="true" @click="showBuyTime()">showBuyTime</cube-button>
         <cube-button :primary="true" @click="axiosPost()">axiosPost</cube-button>
         <cube-checkbox-group v-model="buttonStyle" :horizontal="true">
             <cube-checkbox label="inline">Inline</cube-checkbox>
@@ -25,7 +25,9 @@ export default {
     data() {
         return {
             buttonStyle: ["inline", "outline", "primary"],
-            pickList: jsonData.pickList
+            blandList: jsonData.blandList,
+            carType: jsonData.carType,
+            buyTime: jsonData.buyTime
         };
     },
     computed: {
@@ -66,6 +68,45 @@ export default {
         },
         goAbouot() {
             this.$router.push("/about");
+        },
+        showBlandList() {
+            if (!this.blandPicker) {
+                this.blandPicker = this.$createPicker({
+                    title: "请选择品牌",
+                    data: [this.blandList],
+                    onSelect: selectedVal => {
+                        console.log(selectedVal);
+                    }
+                    // onCancel: this.cancelHandle
+                });
+            }
+            this.blandPicker.show();
+        },
+        showCarType() {
+            if (!this.carPicker) {
+                this.carPicker = this.$createPicker({
+                    title: "请选择车型",
+                    data: [this.carType],
+                    onSelect: selectedVal => {
+                        console.log(selectedVal);
+                    }
+                    // onCancel: this.cancelHandle
+                });
+            }
+            this.carPicker.show();
+        },
+        showBuyTime() {
+            if (!this.buyTimePicker) {
+                this.buyTimePicker = this.$createPicker({
+                    title: "请选择购车时间",
+                    data: [this.buyTime],
+                    onSelect: selectedVal => {
+                        console.log(selectedVal);
+                    }
+                    // onCancel: this.cancelHandle
+                });
+            }
+            this.buyTimePicker.show();
         },
         axiosPost() {
             this.$axios

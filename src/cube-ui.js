@@ -29,7 +29,7 @@ import {
     // popup
     // Popup,
     // Toast,
-    // Picker,
+    Picker,
     // CascadePicker,
     // DatePicker,
     // TimePicker,
@@ -68,7 +68,7 @@ Vue.use(CheckboxGroup)
 // Vue.use(Form)
 // Vue.use(Popup)
 // Vue.use(Toast)
-// Vue.use(Picker)
+Vue.use(Picker)
 // Vue.use(CascadePicker)
 // Vue.use(DatePicker)
 // Vue.use(TimePicker)
