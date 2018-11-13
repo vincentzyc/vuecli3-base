@@ -10,7 +10,7 @@ export default {
 };
 </script>
 
-<style lang="stylus" rel="stylesheet/stylus">S
+<style lang="stylus" rel="stylesheet/stylus">
 .page-move-enter, .page-move-leave-active {
     transform: translate(100%, 0);
 }
