@@ -1,13 +1,13 @@
 <template>
   <div
-    class="cube-page"
+    class="base-page"
     :class="type"
   >
     <header class="header">
       <h1>{{title}}</h1>
       <i
         @click="back"
-        class="cubeic-back"
+        class="header-back cubeic-back"
       ></i>
     </header>
     <div class="wrapper">
@@ -26,7 +26,7 @@
 
 <script type="text/ecmascript-6">
 export default {
-  name: "cube-page",
+  name: "base-page",
   props: {
     title: {
       type: String,
@@ -55,7 +55,7 @@ export default {
 </script>
 
 <style lang="stylus" rel="stylesheet/stylus">
-.cube-page {
+.base-page {
   position: absolute;
   z-index: 10;
   top: 0;
@@ -80,7 +80,7 @@ export default {
       font-weight: 700;
     }
 
-    .cubeic-back {
+    .header-back {
       position: absolute;
       top: 0;
       left: 0;

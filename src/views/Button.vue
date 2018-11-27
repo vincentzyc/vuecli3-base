@@ -1,5 +1,5 @@
 <template>
-  <cube-page
+  <base-page
     type="button-view"
     title="Button"
   >
@@ -22,7 +22,7 @@
         :primary="primaryStyle"
       >Demo Button</cube-button>
     </div>
-  </cube-page>
+  </base-page>
 </template>
 
 <script type="text/ecmascript-6">

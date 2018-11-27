@@ -1,5 +1,5 @@
 <template>
-  <cube-page
+  <base-page
     type="home-view"
     title="HOME"
   >
@@ -12,8 +12,8 @@
       </div>
       <HelloWorld />
     </div>
-    <cube-view></cube-view>
-  </cube-page>
+    <base-view></base-view>
+  </base-page>
 </template>
 
 <script>

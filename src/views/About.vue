@@ -1,5 +1,5 @@
 <template>
-  <cube-page
+  <base-page
     type="about-view"
     title="About"
   >
@@ -15,5 +15,5 @@
         @click="$router.push('./button')"
       >button</cube-button>
     </div>
-  </cube-page>
+  </base-page>
 </template>

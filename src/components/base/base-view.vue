@@ -1,12 +1,12 @@
 <template>
   <transition name="page-move">
-    <router-view class="cube-view"></router-view>
+    <router-view class="base-view"></router-view>
   </transition>
 </template>
 
 <script type="text/ecmascript-6">
 export default {
-  name: "cube-view"
+  name: "base-view"
 };
 </script>
 

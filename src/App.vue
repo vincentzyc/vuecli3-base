@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <div class="jb-content">
+    <div class="base-content">
       <!-- <cube-scroll ref="scroll"> -->
       <div class="text-center">
         <img
@@ -11,12 +11,12 @@
       <HelloWorld />
       <!-- </cube-scroll> -->
     </div>
-    <cube-view></cube-view>
+    <base-view></base-view>
   </div>
 </template>
 <script>
 // @ is an alias to /src
-import HelloWorld from "@/components/HelloWorld.vue";
+import HelloWorld from "@/components/hello-world.vue";
 export default {
   name: "app",
   components: {
@@ -37,7 +37,7 @@ export default {
   height: 100%;
 }
 
-.jb-content {
+.base-content {
   position: absolute;
   top: 0;
   left: 0;
