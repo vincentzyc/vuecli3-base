@@ -115,12 +115,13 @@ export default {
 	},
 	/**
 	 * 获取日期时间 默认格式 "yyyy-mm-dd hh:mm:ss"
-	 * @param {Date} formatDate  可选 指定日期
 	 * @param {String} formatType  可选 格式类型
+	 * @param {Date} formatDate  可选 指定日期
+	 * @return {String} 所需格式的日期
 	 */
-	getFormatDate(formatDate, formatType) {
-		let date = formatDate || new Date();
+	getFormatDate(formatType, formatDate) {
 		let type = formatType || 'yyyy-mm-dd hh:mm:ss';
+		let date = Object.prototype.toString.call(formatDate) === "[object Date]" ? formatDate : new Date();
 		let currentdate = '';
 		let month = date.getMonth() + 1;
 		let strDate = date.getDate();
@@ -155,5 +156,5 @@ export default {
 				break;
 		}
 		return currentdate;
-	}
+	},
 }

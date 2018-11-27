@@ -6,12 +6,12 @@ import router from './router'
 import './assets/css/base.css';
 // import './assets/css/main.css';
 import Api from './assets/js/api';
-import Components from "./modules"; //导入组件库
+import BaseComponents from "./components/base"; //导入组件库
 
 Vue.config.productionTip = false
 
 Vue.use(Api)
-Vue.use(Components)
+Vue.use(BaseComponents)
 
 new Vue({
 	router,
