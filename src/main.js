@@ -14,6 +14,6 @@ Vue.use(Api)
 Vue.use(Components)
 
 new Vue({
-    router,
-    render: h => h(App)
+	router,
+	render: h => h(App)
 }).$mount('#app')

@@ -5,23 +5,23 @@ import Loading from "./loading"; // loading
 const version = '1.0';
 const install = function(Vue) {
 
-    if (install.installed) return;
+	if (install.installed) return;
 
-    Vue.component(CubePage.name, CubePage); //注册组件
-    Vue.component(CubeView.name, CubeView); //注册组件
+	Vue.component(CubePage.name, CubePage); //注册组件
+	Vue.component(CubeView.name, CubeView); //注册组件
 
-    Vue.$loading = Vue.prototype.$loading = Loading; //注册全局方法组件
+	Vue.$loading = Vue.prototype.$loading = Loading; //注册全局方法组件
 
 };
 
 // auto install
 if (typeof window !== 'undefined' && window.Vue) {
-    install(window.Vue);
+	install(window.Vue);
 }
 
 export default {
-    install,
-    version
+	install,
+	version
 };
 
 /**

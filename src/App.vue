@@ -1,15 +1,18 @@
 <template>
-    <div id="app">
-        <div class="jb-content">
-            <!-- <cube-scroll ref="scroll"> -->
-            <div class="text-center">
-                <img alt="Vue logo" src="@/assets/img/logo.png">
-            </div>
-            <HelloWorld />
-            <!-- </cube-scroll> -->
-        </div>
-        <cube-view></cube-view>
+  <div id="app">
+    <div class="jb-content">
+      <!-- <cube-scroll ref="scroll"> -->
+      <div class="text-center">
+        <img
+          alt="Vue logo"
+          src="@/assets/img/logo.png"
+        >
+      </div>
+      <HelloWorld />
+      <!-- </cube-scroll> -->
     </div>
+    <cube-view></cube-view>
+  </div>
 </template>
 <script>
 // @ is an alias to /src
@@ -31,16 +34,16 @@ export default {
 
 <style lang="stylus" rel="stylesheet/stylus">
 #app, body, html {
-    height: 100%;
+  height: 100%;
 }
 
 .jb-content {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    overflow: auto;
-    -webkit-overflow-scrolling: touch;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  -webkit-overflow-scrolling: touch;
 }
 </style>
