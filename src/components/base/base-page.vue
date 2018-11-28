@@ -1,20 +1,11 @@
 <template>
-  <div
-    class="base-page"
-    :class="type"
-  >
+  <div class="base-page" :class="type">
     <header class="header">
       <h1>{{title}}</h1>
-      <i
-        @click="back"
-        class="header-back cubeic-back"
-      ></i>
+      <i @click="back" class="header-back cubeic-back"></i>
     </header>
     <div class="wrapper">
-      <section
-        v-show="desc"
-        class="desc"
-      >
+      <section v-show="desc" class="desc">
         <slot name="desc">{{desc}}</slot>
       </section>
       <main class="content">

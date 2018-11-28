@@ -1,47 +1,19 @@
 <template>
   <div>
     <cube-button @click="sandglass()">sandglass-loading</cube-button>
-    <cube-button
-      type="submit"
-      @click="snake()"
-    >snake-loading</cube-button>
-    <cube-button
-      :active="true"
-      @click="tripleBounce()"
-    >triple-bounce-loading</cube-button>
-    <cube-button
-      icon="cubeic-right"
-      @click="goAbouot()"
-    >goAbouot</cube-button>
-    <cube-button
-      :light="true"
-      @click="showBlandList()"
-    >showBlandList</cube-button>
-    <cube-button
-      :inline="true"
-      @click="showCarType()"
-    >showCarType</cube-button>
-    <cube-button
-      :outline="true"
-      @click="showBuyTime()"
-    >showBuyTime</cube-button>
-    <cube-button
-      :primary="true"
-      @click="axiosPost()"
-    >axiosPost</cube-button>
-    <cube-checkbox-group
-      v-model="buttonStyle"
-      :horizontal="true"
-    >
+    <cube-button type="submit" @click="snake()">snake-loading</cube-button>
+    <cube-button :active="true" @click="tripleBounce()">triple-bounce-loading</cube-button>
+    <cube-button icon="cubeic-right" @click="goAbouot()">goAbouot</cube-button>
+    <cube-button :light="true" @click="showBlandList()">showBlandList</cube-button>
+    <cube-button :inline="true" @click="showCarType()">showCarType</cube-button>
+    <cube-button :outline="true" @click="showBuyTime()">showBuyTime</cube-button>
+    <cube-button :primary="true" @click="axiosPost()">axiosPost</cube-button>
+    <cube-checkbox-group v-model="buttonStyle" :horizontal="true">
       <cube-checkbox label="inline">Inline</cube-checkbox>
       <cube-checkbox label="outline">Outline</cube-checkbox>
       <cube-checkbox label="primary">Primary</cube-checkbox>
     </cube-checkbox-group>
-    <cube-button
-      :inline="inlineStyle"
-      :outline="outlineStyle"
-      :primary="primaryStyle"
-    >Demo Button</cube-button>
+    <cube-button :inline="inlineStyle" :outline="outlineStyle" :primary="primaryStyle">Demo Button</cube-button>
     <cube-button :disabled="true">Disabled Button</cube-button>
   </div>
 </template>

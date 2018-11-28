@@ -1,37 +1,19 @@
 <template>
   <transition name="fade">
-    <div
-      class="jb-loading"
-      v-show="visible"
-    >
-      <div
-        class="jb-loading-wrapper"
-        :style="{ 'padding': text ? '20px' : '15px' }"
-      >
-        <span
-          class="jb-loading-spin"
-          v-if="type==='snake'"
-        >
+    <div class="jb-loading" v-show="visible">
+      <div class="jb-loading-wrapper" :style="{ 'padding': text ? '20px' : '15px' }">
+        <span class="jb-loading-spin" v-if="type==='snake'">
           <div class="jb-snake"></div>
         </span>
-        <div
-          class="jb-triple-bounce"
-          v-else-if="type==='triple-bounce'"
-        >
+        <div class="jb-triple-bounce" v-else-if="type==='triple-bounce'">
           <div class="jb-triple-bounce-bounce1"></div>
           <div class="jb-triple-bounce-bounce2"></div>
           <div class="jb-triple-bounce-bounce3"></div>
         </div>
-        <v-sandglass v-else />
-        <span
-          class="jb-loading-text"
-          v-show="text"
-        >{{ text }}</span>
+        <v-sandglass v-else/>
+        <span class="jb-loading-text" v-show="text">{{ text }}</span>
       </div>
-      <div
-        class="jb-loading-mask"
-        @touchmove.stop.prevent
-      ></div>
+      <div class="jb-loading-mask" @touchmove.stop.prevent></div>
     </div>
   </transition>
 </template>

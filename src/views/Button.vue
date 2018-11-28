@@ -1,8 +1,5 @@
 <template>
-  <base-page
-    type="button-view"
-    title="Button"
-  >
+  <base-page type="button-view" title="Button">
     <div slot="content">
       <cube-button>Button</cube-button>
       <cube-button type="submit">Submit Button</cube-button>
@@ -16,11 +13,7 @@
       <cube-checkbox label="inline">Inline</cube-checkbox>
       <cube-checkbox label="outline">Outline</cube-checkbox>
       <cube-checkbox label="primary">Primary</cube-checkbox>
-      <cube-button
-        :inline="inlineStyle"
-        :outline="outlineStyle"
-        :primary="primaryStyle"
-      >Demo Button</cube-button>
+      <cube-button :inline="inlineStyle" :outline="outlineStyle" :primary="primaryStyle">Demo Button</cube-button>
     </div>
   </base-page>
 </template>

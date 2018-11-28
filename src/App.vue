@@ -3,12 +3,9 @@
     <div class="base-content">
       <!-- <cube-scroll ref="scroll"> -->
       <div class="text-center">
-        <img
-          alt="Vue logo"
-          src="@/assets/img/logo.png"
-        >
+        <img alt="Vue logo" src="@/assets/img/logo.png">
       </div>
-      <HelloWorld />
+      <HelloWorld/>
       <!-- </cube-scroll> -->
     </div>
     <base-view></base-view>
