@@ -110,7 +110,7 @@ export default {
     },
     axiosPost() {
       this.$axios
-        .post("xxx", "hello world")
+        .post("http://120.76.103.21:9091/LoginCheck.aspx", { UserName: "123", PassWord: "456", IsRemembered: true })
         .then(res => {
           console.log(res);
         })
