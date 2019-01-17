@@ -108,15 +108,9 @@ export default {
       }
       this.buyTimePicker.show();
     },
-    axiosPost() {
-      this.$axios
-        .post("http://120.76.103.21:9091/LoginCheck.aspx", { UserName: "123", PassWord: "456", IsRemembered: true })
-        .then(res => {
-          console.log(res);
-        })
-        .catch(error => {
-          console.log(error);
-        });
+    async axiosPost() {
+      let res = await this.$api.ApiModule1.loginCheck({ UserName: "123", PassWord: "456" });
+      console.log(res);
     }
   }
 };
