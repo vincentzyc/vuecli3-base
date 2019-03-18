@@ -1,5 +1,5 @@
 module.exports = {
-  baseUrl: "./",
+  publicPath: "./",
   outputDir: "docs",
   productionSourceMap: false,
 
@@ -8,6 +8,7 @@ module.exports = {
   },
   configureWebpack: {
     // 把webpack的配置写在这里 会自动合并
+    // 以下库使用cdn，不会被打包
     externals: {
       vue: "Vue",
       "vue-router": "VueRouter",
