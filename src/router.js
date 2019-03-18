@@ -14,6 +14,11 @@ export default new VueRouter({
       path: "/button",
       name: "button",
       component: () => import("./views/button.vue")
+    },
+    {
+      path: "/inputitem",
+      name: "inputitem",
+      component: () => import("./views/input-item-demo.vue")
     }
   ]
 });

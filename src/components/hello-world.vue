@@ -1,5 +1,6 @@
 <template>
   <div>
+    <cube-button @click="goInputItem()">input-item demo</cube-button>
     <cube-button @click="sandglass()">sandglass-loading</cube-button>
     <cube-button type="submit" @click="snake()">snake-loading</cube-button>
     <cube-button :active="true" @click="tripleBounce()">triple-bounce-loading</cube-button>
@@ -68,6 +69,9 @@ export default {
     },
     goAbouot() {
       this.$router.push("/about");
+    },
+    goInputItem() {
+      this.$router.push("/inputitem");
     },
     showBlandList() {
       if (!this.blandPicker) {
