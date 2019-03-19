@@ -29,7 +29,7 @@ import {
   // // popup
   // Popup,
   // Toast,
-  Picker
+  Picker,
   // CascadePicker,
   // DatePicker,
   // TimePicker,
@@ -39,7 +39,7 @@ import {
   // Drawer,
   // ImagePreview,
   // // scroll
-  // Scroll,
+  Scroll,
   // Slide,
   // IndexList,
   // Swipe,
@@ -77,7 +77,7 @@ Vue.use(Picker);
 // Vue.use(ActionSheet)
 // Vue.use(Drawer)
 // Vue.use(ImagePreview)
-// Vue.use(Scroll)
+Vue.use(Scroll)
 // Vue.use(Slide)
 // Vue.use(IndexList)
 // Vue.use(Swipe)
