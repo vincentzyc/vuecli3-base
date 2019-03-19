@@ -1,5 +1,5 @@
 <template>
-  <base-page type="about-view" title="About">
+  <base-page type="about-view" title="Input-item">
     <div slot="content">
       <h2>适合金融业务场景的输入框组件</h2>
       <div class="input-item-wrapper">
