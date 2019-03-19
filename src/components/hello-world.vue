@@ -1,5 +1,6 @@
 <template>
   <div>
+    <cube-button @click="goPicker()">picker</cube-button>
     <cube-button @click="goInputItem()">input-item demo</cube-button>
     <cube-button @click="sandglass()">sandglass-loading</cube-button>
     <cube-button type="submit" @click="snake()">snake-loading</cube-button>
@@ -66,6 +67,9 @@ export default {
       setTimeout(() => {
         this.$loading.close();
       }, 3000);
+    },
+    goPicker(){
+      this.$router.push("/picker");
     },
     goAbouot() {
       this.$router.push("/about");

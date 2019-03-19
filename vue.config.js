@@ -4,7 +4,7 @@ module.exports = {
   productionSourceMap: false,
 
   devServer: {
-    port: 3000
+    port: 3010
   },
   configureWebpack: {
     // 把webpack的配置写在这里 会自动合并

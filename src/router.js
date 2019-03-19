@@ -19,6 +19,11 @@ export default new VueRouter({
       path: "/inputitem",
       name: "inputitem",
       component: () => import("./views/input-item-demo.vue")
-    }
+    },
+    {
+			path: '/picker',
+			name: 'picker',
+			component: () => import('./views/picker')
+		}
   ]
 });
