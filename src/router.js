@@ -23,7 +23,7 @@ export default new VueRouter({
     {
 			path: '/picker',
 			name: 'picker',
-			component: () => import('./views/picker/picker')
+			component: () => import('./views/picker')
 		}
   ]
 });

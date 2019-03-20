@@ -1,15 +1,21 @@
 <template>
   <base-page type="about-view" title="Picker">
     <div slot="content">
-      <div class="picker-slot" :class="classNames" :style="flexStyle">
-        <div ref="wrapper" class="picker-slot-wrapper" :class="{ dragging: dragging }" :style="{ width: mutatingValues.length*itemWidth + 'px' }">
-          <div
-            class="picker-item"
-            v-for="itemValue in mutatingValues"
-            :key="itemValue"
-            :class="{ 'picker-selected': itemValue === currentValue }"
-            :style="{ width: itemWidth + 'px' }"
-          >{{ typeof itemValue === 'object' && itemValue[valueKey] ? itemValue[valueKey] : itemValue }}</div>
+      <div class="pick-content" :style="{ width: itemWidth*showNumber + 'px'}">
+        <!-- <div class="pcenter"></div> -->
+        <!-- 中线标识 -->
+        <div ref="container" class="picker-slot">
+          <div ref="wrapper" class="picker-slot-wrapper" :style="{width: (items.length+1) * itemWidth + 'px'}">
+            <div class="picker-item" :style="{width: itemWidth * (showNumber - 1) / 2 + 'px'}"></div>
+            <div
+              class="picker-item"
+              v-for="item in items"
+              :key="item"
+              :class="{ 'picker-selected': item === currentValue }"
+              :style="{ width: itemWidth + 'px' }"
+            >{{item === currentValue ? item + "岁":item}}</div>
+            <div class="picker-item" :style="{width: itemWidth * (showNumber - 1) / 2 + 'px'}"></div>
+          </div>
         </div>
       </div>
     </div>
@@ -20,241 +26,208 @@
 import draggable from './draggable';
 import translateUtil from './translate';
 
-const ITEM_WIDTH = 48;
+const ITEM_WIDTH = 68;
+const SHOW_NUMBER = 5;
+const items = function () {
+  let arr = [];
+  for (let index = 22; index < 59; index++) {
+    arr.push(index)
+  }
+  return arr
+}
 
 export default {
   name: 'picker-slot',
 
   data() {
     return {
-      defaultIndex: 2,
+      showNumber: SHOW_NUMBER,
       itemWidth: ITEM_WIDTH,
-      visibleItemCount: 5,
-      currentValue: '',
-      mutatingValues: ['01', '02', '03', '04', '05', '06', '07', '08', '09', '10', '11', '12','01', '02', '03', '04', '05', '06', '07', '08', '09', '10', '11', '12'],
+      items: items(),
+      defaultIndex: 7,
+      currentIndex: 0,
       dragging: false,
-      animationFrameId: null
+      scrollLeftTimer: null,
+      scrollElementTimer: null
     };
   },
 
   computed: {
-    flexStyle() {
-      return {
-        'flex': this.flex,
-        '-webkit-box-flex': this.flex,
-        '-moz-box-flex': this.flex,
-        '-ms-flex': this.flex
-      };
-    },
-    classNames() {
-      const PREFIX = 'picker-slot-';
-      let resultArray = [];
-
-      let textAlign = this.textAlign || 'center';
-      resultArray.push(PREFIX + textAlign);
-
-      if (this.divider) {
-        resultArray.push(PREFIX + 'divider');
-      }
-
-      if (this.className) {
-        resultArray.push(this.className);
-      }
-
-      return resultArray.join(' ');
-    },
-    valueIndex() {
-      var valueKey = this.valueKey;
-      if (this.currentValue instanceof Object) {
-        for (var i = 0, len = this.mutatingValues.length; i < len; i++) {
-          if (this.currentValue[valueKey] === this.mutatingValues[i][valueKey]) {
-            return i;
-          }
-        }
-        return -1;
-      } else {
-        return this.mutatingValues.indexOf(this.currentValue);
-      }
-    },
-    dragRange() {
-      var values = this.mutatingValues;
-      var visibleItemCount = this.visibleItemCount;
-      var itemWidth = this.itemWidth;
-
-      return [-itemWidth * (values.length - Math.ceil(visibleItemCount / 2)), itemWidth * Math.floor(visibleItemCount / 2)];
-    },
-    minTranslateY() {
-      return this.itemWidth * (Math.ceil(this.visibleItemCount / 2) - this.mutatingValues.length);
-    },
-    maxTranslateY() {
-      return this.itemWidth * Math.floor(this.visibleItemCount / 2);
+    currentValue() {
+      return this.items[this.currentIndex]
     }
   },
 
   methods: {
-    value2Translate(value) {
-      var values = this.mutatingValues;
-      var valueIndex = values.indexOf(value);
-      var offset = Math.floor(this.visibleItemCount / 2);
-      var itemWidth = this.itemWidth;
-
-      if (valueIndex !== -1) {
-        return (valueIndex - offset) * -itemWidth;
-      }
-    },
-
-    translate2Value(translate) {
-
-      var itemWidth = this.itemWidth;
-      translate = Math.round(translate / itemWidth) * itemWidth;
-      // var index = -(translate - Math.floor(this.visibleItemCount / 2) * itemWidth) / itemWidth;
-      var index = -(translate) / itemWidth;
-
-      return this.mutatingValues[index];
-    },
-
     initEvents() {
-      var el = this.$refs.wrapper;
-      var dragState = {};
-      var pickerItems;
-      // var velocityTranslate, prevTranslate, pickerItems;
+      let elWrapper = this.$refs.wrapper;
+      let elContainer = this.$refs.container;
+      let dragState = {}, posLeft = elContainer.scrollLeft;
 
-      draggable(el, {
-        start: (event) => {
-          cancelAnimationFrame(this.animationFrameId);
-          this.animationFrameId = null;
+      draggable(elWrapper, {
+        start: (event, touchEvent) => {
+          // clearTimeout(this.scrollLeftTimer);
+          // clearTimeout(this.scrollElementTimer);
+          cancelAnimationFrame(this.scrollLeftTimer);
+          cancelAnimationFrame(this.scrollElementTimer);
           dragState = {
-            range: this.dragRange,
-            start: new Date(),
+            isDrag: true,
             startLeft: event.pageX,
-            // startTop: event.pageY,
-            // startTranslateTop: translateUtil.getElementTranslate(el).top,
-            startTranslateLeft: translateUtil.getElementTranslate(el).left //add by zyc
+            startTop: event.pageY
           };
-          pickerItems = el.querySelectorAll('.picker-item');
         },
 
-        drag: (event) => {
+        drag: (event, touchEvent) => {
           this.dragging = true;
 
           dragState.left = event.pageX;
-          // dragState.top = event.pageY;
+          dragState.top = event.pageY;
 
-          // var deltaY = dragState.top - dragState.startTop;
-          // var translate = dragState.startTranslateTop + deltaY;
+          let deltaX = dragState.left - dragState.startLeft;
+          let translate = dragState.startTranslateLeft + deltaX;
 
-          /* add by zyc */
-          var deltaX = dragState.left - dragState.startLeft;
-          var translateX = dragState.startTranslateLeft + deltaX;
-          /* add by zyc */
+          let preventRightScroll = elContainer.scrollLeft === 0 && deltaX > 0;
+          let preventLeftScroll = elContainer.scrollLeft === (this.items.length - 1) * this.itemWidth && deltaX < 0;
 
-          translateUtil.translateElement(el, translateX, null);
-
-
-          // velocityTranslate = translate - prevTranslate || translate;
-
-          // prevTranslate = translate;
+          if (preventRightScroll || preventLeftScroll) {
+            touchEvent ? touchEvent.preventDefault() : event.preventDefault();
+            dragState.isDrag = false;
+          }
         },
 
-        end: (event) => {
+        end: (event, touchEvent) => {
           this.dragging = false;
-
-          // var momentumRatio = 7;
-          // // var currentTranslate = translateUtil.getElementTranslate(el).top;
-          // var currentTranslate = translateUtil.getElementTranslate(el).left;
-          // var duration = new Date() - dragState.start;
-          // // let distance = Math.abs(dragState.startTranslateTop - currentTranslate);
-          // let distance = Math.abs(dragState.startTranslateLeft - currentTranslate);
-          // var itemWidth = this.itemWidth;
-          // var visibleItemCount = this.visibleItemCount;
-
-          // let rect, offset;
-          // if (distance < 6) {
-          //   rect = this.$el.getBoundingClientRect();
-          //   offset = Math.floor((event.clientY - (rect.top + (visibleItemCount - 1) * itemWidth / 2)) / itemWidth) * itemWidth;
-
-          //   if (offset > this.maxTranslateY) {
-          //     offset = this.maxTranslateY;
-          //   }
-
-          //   velocityTranslate = 0;
-          //   currentTranslate -= offset;
-          // }
-
-          // var momentumTranslate;
-          // if (duration < 300) {
-          //   momentumTranslate = currentTranslate + velocityTranslate * momentumRatio;
-          // }
-
-          // var dragRange = dragState.range;
-
-          // this.$nextTick(() => {
-          //   var translate;
-          //   // if (momentumTranslate) {
-          //   //   translate = Math.round(momentumTranslate / itemWidth) * itemWidth;
-          //   // } else {
-          //   //   translate = Math.round(currentTranslate / itemWidth) * itemWidth;
-          //   // }
-          //   translate = Math.round(currentTranslate / itemWidth) * itemWidth;
-          //   // translate = Math.max(Math.min(translate, dragRange[1]), dragRange[0]);
-
-          //   // translateUtil.translateElement(el, null, translate);
-          //   translateUtil.translateElement(el, translate, null);
-
-          //   // this.currentValue = this.translate2Value(translate);
-          //   console.log(translate);
-
-          // });
-
+          console.log('touchEnd', dragState.isDrag);
+          if (dragState.isDrag) this.isScrolling(elContainer);
           dragState = {};
         }
       });
     },
+    isScrolling(el) {
+      let sLeft = el.scrollLeft;
 
-    doOnValueChange() {
-      var value = this.currentValue;
-      var wrapper = this.$refs.wrapper;
+      cancelAnimationFrame(this.scrollLeftTimer);
+      let scrollingFn = () => {
+        if (sLeft !== el.scrollLeft) {
+          console.log("滑动中");
+          sLeft = el.scrollLeft;
+          this.scrollLeftTimer = requestAnimationFrame(scrollingFn);
+        } else {
+          console.log("滑动结束");
+          this.setCurrentIndex(sLeft + this.itemWidth / 2);
+          cancelAnimationFrame(this.scrollLeftTimer);
+        }
+      }
+      this.scrollLeftTimer = requestAnimationFrame(scrollingFn);
 
-      translateUtil.translateElement(wrapper, this.value2Translate(value), null);
+      // clearTimeout(this.scrollLeftTimer);
+      // let scrollingFn = () => {
+      //   setTimeout(() => {
+      //     if (sLeft !== el.scrollLeft) {
+      //       console.log("滑动中");
+      //       sLeft = el.scrollLeft;
+      //       scrollingFn();
+      //     } else {
+      //       console.log("滑动结束");
+      //       this.setCurrentIndex(sLeft + this.itemWidth / 2);
+      //     }
+      //   }, 30);
+      // }
+      // scrollingFn()
+    },
+    setCurrentIndex(x) {
+      this.currentIndex = Math.floor(x / this.itemWidth);
+      this.scrollElement(this.$refs.container, this.currentIndex * this.itemWidth, 5);
+      console.log('所选项', this.currentValue);
+      // this.$emit('input', val);
+    },
+    scrollElement(el, x = 0, rang = 20) {
+      if (rang === 0) return el.scrollLeft = x;
+
+      cancelAnimationFrame(this.scrollElementTimer);
+      let scrollElFn = () => {
+        let oLeft = el.scrollLeft, change = 0;
+        if (oLeft > x) {
+          change = oLeft - x > rang ? rang : oLeft - x;
+          el.scrollLeft = oLeft - change;
+          this.scrollElementTimer = requestAnimationFrame(scrollElFn);
+        } else if (oLeft < x) {
+          change = x - oLeft > rang ? rang : x - oLeft;
+          el.scrollLeft = oLeft + change;
+          this.scrollElementTimer = requestAnimationFrame(scrollElFn);
+        } else {
+          cancelAnimationFrame(this.scrollElementTimer);
+        }
+      }
+      this.scrollElementTimer = requestAnimationFrame(scrollElFn);
+
+      // clearTimeout(this.scrollElementTimer);
+      // let scrollElFn = () => {
+      //   setTimeout(() => {
+      //     let oLeft = el.scrollLeft, change = 0;
+      //     if (oLeft > x) {
+      //       change = oLeft - x > rang ? rang : oLeft - x;
+      //       el.scrollLeft = oLeft - change;
+      //       scrollElFn();
+      //     } else if (oLeft < x) {
+      //       change = x - oLeft > rang ? rang : x - oLeft;
+      //       el.scrollLeft = oLeft + change;
+      //       scrollElFn();
+      //     } else {
+      //       clearTimeout(this.scrollElementTimer);
+      //     }
+      //   }, 16);
+      // }
+      // scrollElFn()
+
     }
   },
 
   mounted() {
-
-    this.initEvents();
-    this.doOnValueChange();
-
+    this.$nextTick(function () {
+      this.initEvents();
+      if (this.defaultIndex >= 0) {
+        this.currentIndex = this.defaultIndex;
+        this.scrollElement(this.$refs.container, this.defaultIndex * this.itemWidth, 0);
+      }
+    })
   },
+  created() {
 
-  watch: {
-
-    mutatingValues(val) {
-      if (this.valueIndex === -1) {
-        this.currentValue = (val || [])[0];
-      }
-    },
-    currentValue(val) {
-      this.doOnValueChange();
-      this.$emit('input', val);
-    },
-    defaultIndex(val) {
-      if ((this.mutatingValues[val] !== undefined) && (this.mutatingValues.length >= val + 1)) {
-        this.currentValue = this.mutatingValues[val];
-      }
-    }
   }
 };
 </script>
 
 
 <style>
+.pick-content {
+  overflow: hidden;
+  margin: 50px auto;
+  position: relative;
+  border: 1px solid #ccc;
+  border-radius: 20px;
+  height: 50px;
+}
 .picker-slot {
   font-size: 18px;
-  overflow: hidden;
   position: relative;
-  max-height: 100%;
+  width: 100%;
+  overflow: auto;
+  transition: 0.5s;
+  -webkit-overflow-scrolling: touch;
+   padding-bottom: 20px;
+}
+.picker-slot::-webkit-scrollbar {
+  display: none;
 }
 
+.pcenter {
+  position: absolute;
+  height: 100%;
+  width: 1px;
+  left: 50%;
+  background: #f00;
+}
 .picker-slot.picker-slot-left {
   text-align: left;
 }
@@ -275,17 +248,11 @@ export default {
 
 .picker-slot-wrapper {
   white-space: nowrap;
-  transition-duration: 0.3s;
-  transition-timing-function: ease-out;
-  backface-visibility: hidden;
-}
-
-.picker-slot-wrapper.dragging,
-.picker-slot-wrapper.dragging .picker-item {
-  transition-duration: 0s;
+  transition: 0.3s;
 }
 
 .picker-item {
+  text-align: center;
   display: inline-block;
   height: 36px;
   line-height: 36px;
@@ -312,28 +279,6 @@ export default {
 }
 
 .picker-item.picker-selected {
-  color: #000;
-  transform: translate3d(0, 0, 0) rotateX(0);
-}
-
-.picker-3d .picker-items {
-  overflow: hidden;
-  perspective: 700px;
-}
-
-.picker-3d .picker-item,
-.picker-3d .picker-slot,
-.picker-3d .picker-slot-wrapper {
-  transform-style: preserve-3d;
-}
-
-.picker-3d .picker-slot {
-  overflow: visible;
-}
-
-.picker-3d .picker-item {
-  transform-origin: center center;
-  backface-visibility: hidden;
-  transition-timing-function: ease-out;
+  color: rgb(214, 131, 23);
 }
 </style>
