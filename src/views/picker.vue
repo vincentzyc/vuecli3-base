@@ -3,7 +3,7 @@
   <base-page type="scroll-view" title="Scroll" class="option-demo">
     <div slot="content" class="scroll-wrapper">
       <div class="demo">
-        <div class="title">horizontal Scroll Picker</div>
+        <div class="text-center">horizontal Scroll Picker</div>
         <horizontal-picker
           v-model="hpicker"
           :pickerClass="'pselected'"
@@ -13,7 +13,6 @@
           :showNumber="showNumber"
         >
           <!-- <template slot-scope="{item}">{{item === hpicker ? item + "岁":item}}</template> -->
-          <!-- <template slot-scope="{item}">{{item}}</template> -->
         </horizontal-picker>
       </div>
     </div>
@@ -21,14 +20,6 @@
 </template>
 
 <script type="text/ecmascript-6">
-// itemWidth: {
-//       type: Number,
-//       default: ITEM_WIDTH
-//     },
-//     showNumber: {
-//       type: Number,
-//       default: SHOW_NUMBER
-//     },
 const items = function () {
   let arr = [];
   for (let index = 22; index < 59; index++) {
@@ -39,9 +30,9 @@ const items = function () {
 export default {
   data() {
     return {
-      itemWidth: 100,
-      showNumber: 3,
-      defaultIndex:3,
+      itemWidth: 80,
+      showNumber: 4,
+      defaultIndex: 3,
       items: ['1000', '3000', '5000', '10000', '30000', '50000', '10万', '10万以上'],
       hpicker: ""
     }

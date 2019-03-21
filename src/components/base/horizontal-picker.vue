@@ -20,7 +20,6 @@
       >
         <span v-if="!pickerSlot">{{item}}</span>
         <slot v-else :item="item"></slot>
-        <!-- {{item === currentValue ? item + "岁":item}} -->
       </div>
       <div class="picker-item" :style="{width: itemWidth * (showNumber - 1) / 2 + 'px'}"></div>
     </div>
@@ -85,7 +84,8 @@ export default {
   },
   methods: {
     handClick(key) {
-      this.currentIndex = key
+      if (this.currentIndex === key) return;
+      this.currentIndex = key;
       this.scrollX = -this.currentIndex * this.itemWidth;
       this.BScoll.scrollTo(this.scrollX, 0, 150);
       this.$emit('input', this.currentValue);
@@ -110,18 +110,18 @@ export default {
       clearTimeout(this.scrollEndTimer);
       this.scrollEndTimer = setTimeout(() => {
         if (this.draging || this.scrollX === pos.x) return false;
-        console.log('111111111111111111111滚动结束11111111111111111111', pos);
+        console.log('滑动结束', pos);
         this.draging = false;
         this.setCurrentIndex(pos.x);
-      }, 30);
+      }, 50);
     },
     beforeScrollStart() {
       this.draging = true;
-      console.log('滚动开始之前');
+      console.log('滑动开始之前');
     },
     scrollCancel() {
       this.draging = false;
-      console.log('滚动被取消');
+      console.log('滑动被取消');
     },
     setDefaultIndex() {
       if (this.defaultIndex > 0) {
