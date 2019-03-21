@@ -21,9 +21,9 @@ export default new VueRouter({
       component: () => import("./views/input-item-demo.vue")
     },
     {
-			path: '/picker',
-			name: 'picker',
-			component: () => import('./views/picker')
+			path: '/horizontalpicker',
+			name: 'horizontalpicker',
+			component: () => import('./views/horizontal-picker')
     }
   ]
 });
