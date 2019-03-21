@@ -69,7 +69,7 @@ export default {
       }, 3000);
     },
     goPicker(){
-      this.$router.push("/picker");
+      this.$router.push("/horizontalpicker");
     },
     goAbouot() {
       this.$router.push("/about");
