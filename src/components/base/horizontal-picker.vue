@@ -153,8 +153,8 @@ export default {
 
 .horizontal-scroll-list-wrap {
   border: 1px solid rgba(0, 0, 0, 0.1);
-  margin: 50px auto;
   border-radius: 20px;
+  height: 36px;
 
   .cube-scroll-content {
     display: inline-block;

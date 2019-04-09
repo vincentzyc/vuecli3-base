@@ -11,6 +11,7 @@
           :defaultIndex="defaultIndex"
           :itemWidth="itemWidth"
           :showNumber="showNumber"
+          style="margin:50px auto"
         >
           <!-- <template slot-scope="{item}">{{item === hpicker ? item + "岁":item}}</template> -->
         </horizontal-picker>
