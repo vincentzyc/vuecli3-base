@@ -2,7 +2,7 @@ import BasePage from './base-page'; //页面组件
 import BaseView from './base-view'; //路由嵌套组件
 import Loading from "./loading"; // loading
 import InputItem from "./input-item"; // 可格式化输入框组件
-import HorizontalPicker from "./horizontal-picker"; // 可格式化输入框组件
+import HorizontalPicker from "./horizontal-picker"; // 横向滑动自动选择组件
 
 const version = '1.0';
 const install = function(Vue) {
