@@ -6,7 +6,7 @@
         <div class="text-center">horizontal Scroll Picker</div>
         <horizontal-picker
           v-model="hpicker"
-          :pickerClass="'pselected'"
+          :pickerStyle="{color:rgb(214, 131, 23),fontSize:'20px'}"
           :data="items"
           :defaultIndex="defaultIndex"
           :itemWidth="itemWidth"
@@ -21,13 +21,13 @@
 </template>
 
 <script type="text/ecmascript-6">
-const items = function () {
-  let arr = [];
-  for (let index = 22; index < 59; index++) {
-    arr.push(index)
-  }
-  return arr
-}
+// const items = function () {
+//   let arr = [];
+//   for (let index = 22; index < 59; index++) {
+//     arr.push(index)
+//   }
+//   return arr
+// }
 export default {
   data() {
     return {
@@ -43,10 +43,3 @@ export default {
   }
 }
 </script>
-
-<style lang="stylus" rel="stylesheet/stylus">
-
-.pselected {
-  color: rgb(214, 131, 23) !important;
-}
-</style>

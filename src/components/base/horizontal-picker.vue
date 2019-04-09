@@ -14,8 +14,7 @@
         class="picker-item"
         v-for="(item,key) in data"
         :key="item"
-        :class="{ [pickerClass]: item === currentValue }"
-        :style="{ width: itemWidth + 'px' }"
+        :style="[{width:itemWidth + 'px'},item === currentValue ? pickerStyle : {}]"
         @click="handClick(key)"
       >
         <span v-if="!pickerSlot">{{item}}</span>
@@ -42,9 +41,11 @@ export default {
       type: Boolean,
       default: false
     },
-    pickerClass: {
-      type: String,
-      default: "picker-selected"
+    pickerStyle: {
+      type: Object,
+      default: () => {
+        color: '#d68317';
+      }
     },
     itemWidth: {
       type: Number,
@@ -56,7 +57,7 @@ export default {
     },
     data: {
       type: Array,
-      default: [],
+      default: () => [],
       required: true
     },
     defaultIndex: {
@@ -150,11 +151,10 @@ export default {
 </script>
 
 <style lang="stylus" rel="stylesheet/stylus">
-
 .horizontal-scroll-list-wrap {
   border: 1px solid rgba(0, 0, 0, 0.1);
-  border-radius: 20px;
   height: 36px;
+  border-radius: 20px;
 
   .cube-scroll-content {
     display: inline-block;
@@ -179,10 +179,6 @@ export default {
       color: #707274;
       box-sizing: border-box;
       backface-visibility: hidden;
-    }
-
-    .picker-selected {
-      color: rgb(214, 131, 23);
     }
   }
 }
