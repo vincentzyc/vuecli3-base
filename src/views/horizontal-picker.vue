@@ -6,7 +6,7 @@
         <div class="text-center">horizontal Scroll Picker</div>
         <horizontal-picker
           v-model="hpicker"
-          :pickerStyle="{color:rgb(214, 131, 23),fontSize:'20px'}"
+          :pickerStyle="{color:'#409eff',fontSize:'20px'}"
           :data="items"
           :defaultIndex="defaultIndex"
           :itemWidth="itemWidth"
